@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useMemo, useCallback } from 'react'
 
 import Highcharts from 'highcharts'
 import HighchartsReact from 'highcharts-react-official'
@@ -14,26 +14,28 @@ import Notice from './Notice'
 import '../../styles/Report.css'
 
 const Report = () => {
-  const Salaries = new SalariesHelper(require('../../data/salaries.json'))
-  const States = new StateHelper(require('../../data/states.json'))
+  // Initialize helpers once
+  const Salaries = useMemo(() => new SalariesHelper(require('../../data/salaries.json')), [])
+  const States = useMemo(() => new StateHelper(require('../../data/states.json')), [])
 
   const [states, setStates] = useState(['NY', 'CA', 'AZ'])
   const [config, setConfig] = useState({})
 
-  const buildSeries = stateList => {
-    const selected = stateList.length > 0 ? stateList : states
-    return selected.map(stateId => ({
+  // Memoize buildSeries to prevent recreation on every render
+  const buildSeries = useCallback((stateList) => {
+    return stateList.map(stateId => ({
       data: Salaries.getSeries(stateId),
       name: States.getName(stateId)
     }))
-  }
+  }, [Salaries, States])
 
-  const getConfig = stateList => ({
+  // Memoize getConfig to prevent recreation on every render
+  const getConfig = useCallback((stateList) => ({
     ...chartOptions,
     series: buildSeries(stateList)
-  })
+  }), [buildSeries])
 
-  const handleControlChange = v => {
+  const handleControlChange = useCallback((v) => {
     if (!states.includes(v.newState)) {
       const updatedStates = [...states, v.newState]
       setStates(updatedStates)
@@ -43,9 +45,9 @@ const Report = () => {
       //   State: States.states[v.newState]
       // })
     }
-  }
+  }, [states, getConfig])
 
-  const handleDeleteState = key => {
+  const handleDeleteState = useCallback((key) => {
     const updatedStates = states.filter(state => state !== key)
     setStates(updatedStates)
     setConfig(getConfig(updatedStates))
@@ -53,20 +55,22 @@ const Report = () => {
     // mixpanel?.track?.('Remove State', {
     //   State: States.states[key]
     // })
-  }
+  }, [states, getConfig])
 
+  // Update config when states change
   useEffect(() => {
     setConfig(getConfig(states))
-  }, []) // run once on mount
+  }, [states, getConfig])
 
-  useEffect(() => {
-    const selectedStates = States.getByKeys(states)
-    const stateNamesToTrack = selectedStates.map(state => state.label)
+  // Track state changes
+  // useEffect(() => {
+  //   const selectedStates = States.getByKeys(states)
+  //   const stateNamesToTrack = selectedStates.map(state => state.label)
 
-    // mixpanel?.track?.('Salary Comparison', {
-    //   States: stateNamesToTrack
-    // })
-  }, [states])
+  //   mixpanel?.track?.('Salary Comparison', {
+  //     States: stateNamesToTrack
+  //   })
+  // }, [states, States])
 
   const selectedStates = States.getByKeys(states)
 
@@ -75,7 +79,6 @@ const Report = () => {
       {states.length > 0 ? (
         <HighchartsReact
           highcharts={Highcharts}
-          constructorType="chart"
           options={config}
         />
       ) : (

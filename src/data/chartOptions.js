@@ -4,7 +4,7 @@
  */
 let chartOptions = {
   chart: {
-    type: 'areaspline',
+    type: 'spline',
     backgroundColor: '#212121',
     plotBorderColor: '#606063'
   },
@@ -49,6 +49,11 @@ let chartOptions = {
     tickColor: '#707073',
   },
   exporting: {
+    buttons: {
+      contextButton: {
+        menuItems: ['printChart']
+      }
+    },
     sourceWidth: 1600,
     sourceHeight: 400
   },
