@@ -17,7 +17,7 @@ const PrimaryAppBar = () => (
     title={META.appTitle}
     iconElementRight={<IconButton><NavigationClose /></IconButton>}
     iconStyleLeft={{display: 'none'}}
-    onRightIconButtonTouchTap={handleCodeClick}
+    onRightIconButtonClick={handleCodeClick}
     style={{backgroundColor: META.colors.primary}}
   />
 )
