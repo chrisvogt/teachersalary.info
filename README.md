@@ -1,5 +1,6 @@
 [![GitHub release](https://img.shields.io/github/release/teacherdata/salaries.svg)](https://github.com/teacherdata/salaries/releases)
-[![Coverage Status](https://coveralls.io/repos/github/teacherdata/salaries/badge.svg)](https://coveralls.io/github/teacherdata/salaries)
+[![.github/workflows/ci.yml](https://github.com/chrisvogt/teachersalary.info/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/chrisvogt/teachersalary.info/actions/workflows/ci.yml)
+[![codecov](https://codecov.io/gh/chrisvogt/teachersalary.info/graph/badge.svg?token=aMQ5TSNe9t)](https://codecov.io/gh/chrisvogt/teachersalary.info)
 [![GitHub license](https://img.shields.io/github/license/teacherdata/salaries.svg)](https://github.com/teacherdata/salaries/blob/master/LICENSE)
 
 # Compare U.S. Teacher Salaries: 1969 to 2013
