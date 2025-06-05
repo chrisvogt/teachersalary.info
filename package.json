@@ -6,7 +6,6 @@
   "private": true,
   "license": "MIT",
   "devDependencies": {
-    "coveralls": "^2.13.1",
     "enzyme": "^2.9.1",
     "gh-pages": "^1.0.0",
     "highcharts": "^5.0.12",
@@ -34,7 +33,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "deploy": "npm run build && gh-pages -d build",
-    "test": "react-scripts test --coverage --env=jsdom && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
+    "test": "react-scripts test --coverage --env=jsdom && cat ./coverage/lcov.info",
     "eject": "react-scripts eject"
   },
   "dependencies": {
