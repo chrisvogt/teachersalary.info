@@ -1,5 +1,4 @@
 [![GitHub release](https://img.shields.io/github/release/teacherdata/salaries.svg)](https://github.com/teacherdata/salaries/releases)
-[![Build status](https://travis-ci.org/teacherdata/salaries.svg)](https://travis-ci.org/teacherdata/salaries)
 [![Coverage Status](https://coveralls.io/repos/github/teacherdata/salaries/badge.svg)](https://coveralls.io/github/teacherdata/salaries)
 [![GitHub license](https://img.shields.io/github/license/teacherdata/salaries.svg)](https://github.com/teacherdata/salaries/blob/master/LICENSE)
 
