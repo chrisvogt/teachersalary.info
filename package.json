@@ -1,9 +1,9 @@
 {
   "name": "teacher-salaries",
-  "version": "0.9.0",
-  "author": "Chris Vogt <mail@chrisvogt.me> (http://www.chrisvogt.me)",
-  "homepage": "https://teacherdata.github.io",
-  "private": false,
+  "version": "0.10.0",
+  "author": "Chris Vogt <mail@chrisvogt.me> (https://www.chrisvogt.me)",
+  "homepage": "https://teachersalary.info/",
+  "private": true,
   "license": "MIT",
   "devDependencies": {
     "coveralls": "^2.13.1",
