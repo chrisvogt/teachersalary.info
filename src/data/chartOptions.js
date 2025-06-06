@@ -4,7 +4,7 @@
  */
 let chartOptions = {
   chart: {
-    type: 'spline',
+    type: 'line',
     backgroundColor: '#212121',
     plotBorderColor: '#606063'
   },

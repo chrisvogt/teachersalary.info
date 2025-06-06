@@ -16,6 +16,18 @@ const Chips = ({ chipData, onDeleteState }) => {
       sx={{
         backgroundColor: 'white',
         margin: 0.5,
+        '&:hover': {
+          backgroundColor: 'rgba(255, 255, 255, 0.9)'
+        },
+        '&:focus': {
+          backgroundColor: 'rgba(255, 255, 255, 0.9)'
+        },
+        '& .MuiChip-deleteIcon': {
+          color: '#004D40',
+          '&:hover': {
+            color: '#00695C'
+          }
+        }
       }}
     />
   )
