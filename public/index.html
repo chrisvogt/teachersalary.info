@@ -1,50 +1,50 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-<!--
-    An open source project by Chris Vogt <@c1v0>
-    https://github.com/teacherdata/salaries
- -->
-
-    <link rel="manifest" href="%PUBLIC_URL%/manifest.json">
-    <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
+    <!--
+      An open source project by Chris Vogt <https://www.chrisvogt.me>
+      https://github.com/chrisvogt/teachersalary.info
+    -->
 
     <title>Teacher Salaries by State</title>
 
-    <meta name="description" content="Compare estimated average salaries for public elementary and secondary school teachers in the U.S. by state.">
-    <meta name="author" content="Chris Vogt">
-    <meta name="theme-color" content="#004D40">
-    <meta property="og:title" content="Compare teacher salaries, by state">
-    <meta property="og:description" content="Compare estimated average salaries for public elementary and secondary school teachers in the U.S. by state.">
-    <meta property="og:image" content="https://raw.githubusercontent.com/teacherdata/salaries/1e1de731/public/images/screenshot.jpg">
-    <meta property="og:image" content="https://cdn.rawgit.com/teacherdata/salaries/1e1de731/public/banner.png">
-    <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:site" content="@c1v0">
-    <meta property="twitter:creator" content="@c1v0">
+    <!-- App metadata -->
+    <meta name="description" content="Compare estimated average salaries for public elementary and secondary school teachers in the U.S. by state." />
+    <meta name="author" content="Chris Vogt" />
+    <meta name="theme-color" content="#004D40" />
 
-  </head>
-  <body>
-    <noscript>
-      You need to enable JavaScript to run this app.
-    </noscript>
-    <div id="root"></div>
+    <!-- Open Graph / Social -->
+    <meta property="og:title" content="Compare teacher salaries, by state" />
+    <meta property="og:description" content="Compare estimated average salaries for public elementary and secondary school teachers in the U.S. by state." />
+    <meta property="og:image" content="https://raw.githubusercontent.com/teacherdata/salaries/1e1de731/public/images/screenshot.jpg" />
+    <meta property="og:image" content="https://cdn.rawgit.com/teacherdata/salaries/1e1de731/public/banner.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@c1v0" />
+    <meta name="twitter:creator" content="@c1v0" />
 
+    <!-- Manifest + favicon -->
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" type="image/x-icon" />
+
+    <!-- Fonts: Google Fonts via WebFont Loader -->
     <script>
       WebFontConfig = {
-        google: {
-          families: ['Merriweather', 'Quicksand']
-        }
+        google: { families: ['Merriweather', 'Quicksand'] }
       };
-
       (function(d) {
-        var wf = d.createElement('script'), s = d.scripts[0];
+        const wf = d.createElement('script');
         wf.src = 'https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js';
         wf.async = true;
-        s.parentNode.insertBefore(wf, s);
+        d.head.appendChild(wf);
       })(document);
     </script>
+  </head>
+
+  <body>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div id="root"></div>
   </body>
 </html>

@@ -1,22 +1,22 @@
 import React from 'react'
-import { shallow } from 'enzyme'
+import { render, screen } from '@testing-library/react'
 import Notice from './Notice'
-
 import * as CONTENT from '../../content/text'
 
-it('renders without crashing', () => {
-  shallow(<Notice />)
-})
+describe('Notice', () => {
+  it('renders without crashing', () => {
+    const { container } = render(<Notice />)
+    expect(container).toBeInTheDocument()
+  })
 
-it('renders the default notice message', () => {
-  const wrapper = shallow(<Notice />)
-  const notice = <p>{CONTENT.noStatesNotice}</p>
-  expect(wrapper.contains(notice)).toEqual(true)
-})
+  it('renders the default notice message', () => {
+    render(<Notice />)
+    expect(screen.getByText(CONTENT.noStatesNotice)).toBeInTheDocument()
+  })
 
-it('renders the passed notice message', () => {
-  const message = 'Veritate Duce Progredi'
-  const wrapper = shallow(<Notice message={message} />)
-  const notice = <p>{message}</p>
-  expect(wrapper.contains(notice)).toEqual(true)
+  it('renders the passed notice message', () => {
+    const message = 'Veritate Duce Progredi'
+    render(<Notice message={message} />)
+    expect(screen.getByText(message)).toBeInTheDocument()
+  })
 })

@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import Chip from 'material-ui/Chip'
 
 const STYLES = {
@@ -17,35 +17,29 @@ const STYLES = {
  * Note that since no `onTouchTap` property is defined, the Chip can be focused, but does not gain depth
  * while clicked or touched.
  */
-export default class Chips extends Component {
-  constructor(props) {
-    super(props)
-    this.styles = STYLES
-  }
+const Chips = ({ chipData, onDeleteState }) => {
+  const renderChip = data => (
+    <Chip
+      key={data.key}
+      onRequestDelete={() => onDeleteState(data.key)}
+      style={STYLES.chip}
+    >
+      {data.label}
+    </Chip>
+  )
 
-  renderChip(data) {
-    return (
-      <Chip
-        key={data.key}
-        onRequestDelete={() => this.props.onDeleteState(data.key)}
-        style={this.styles.chip}
-      >
-        {data.label}
-      </Chip>
-    )
-  }
-
-  getChips() {
-    if (this.props.chipData && this.props.chipData.length > 0) {
-      return this.props.chipData.map(this.renderChip, this)
+  const getChips = () => {
+    if (chipData && chipData.length > 0) {
+      return chipData.map(renderChip)
     }
+    return null
   }
 
-  render() {
-    return (
-      <div style={this.styles.wrapper}>
-        {this.getChips()}
-      </div>
-    )
-  }
+  return (
+    <div style={STYLES.wrapper}>
+      {getChips()}
+    </div>
+  )
 }
+
+export default Chips

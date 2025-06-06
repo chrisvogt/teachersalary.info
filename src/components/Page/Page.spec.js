@@ -1,5 +1,5 @@
 import React from 'react'
-import { shallow } from 'enzyme'
+import { render, screen } from '@testing-library/react'
 import Page from './'
 
 const PROPS = {
@@ -9,22 +9,26 @@ const PROPS = {
   disclaimer: 'Sapientia et Doctrina'
 }
 
-const setup = () => {
-  return shallow(<Page {...PROPS} />)
-}
+describe('Page', () => {
+  it('renders without crashing', () => {
+    const { container } = render(<Page {...PROPS} />)
+    expect(container).toBeInTheDocument()
+  })
 
-it('renders without crashing', () => {
-  setup()
-})
-
-it('renders the passed content', () => {
-  const wrapper = setup()
-  const headline = <h1>{PROPS.headline}</h1>
-  const subhead = <h3 className="subhead">{PROPS.subhead}</h3>
-  const source = <p className="source">{PROPS.source}</p>
-  const disclaimer = <small className="disclaimer">{PROPS.disclaimer}</small>
-  expect(wrapper.contains(headline)).toEqual(true)
-  expect(wrapper.contains(subhead)).toEqual(true)
-  expect(wrapper.contains(source)).toEqual(true)
-  expect(wrapper.contains(disclaimer)).toEqual(true)
+  it('renders the passed content', () => {
+    render(<Page {...PROPS} />)
+    
+    // Using role queries where possible for better accessibility testing
+    expect(screen.getByRole('heading', { level: 1, name: PROPS.headline })).toBeInTheDocument()
+    expect(screen.getByRole('heading', { level: 3, name: PROPS.subhead })).toBeInTheDocument()
+    
+    // Using text queries for elements without semantic roles
+    expect(screen.getByText(PROPS.source)).toBeInTheDocument()
+    expect(screen.getByText(PROPS.disclaimer)).toBeInTheDocument()
+    
+    // Verify correct classes are applied
+    expect(screen.getByText(PROPS.subhead)).toHaveClass('subhead')
+    expect(screen.getByText(PROPS.source)).toHaveClass('source')
+    expect(screen.getByText(PROPS.disclaimer)).toHaveClass('disclaimer')
+  })
 })

@@ -1,8 +1,10 @@
-import React, { Component } from 'react'
-import PropTypes from 'prop-types'
+import React, { useEffect, useState, useMemo, useCallback } from 'react'
 
-import ReactHighcharts from 'react-highcharts'
-import initHighcharts from '../Visualization/initHighcharts'
+import Highcharts from 'highcharts'
+import HighchartsReact from 'highcharts-react-official'
+import 'highcharts/highcharts-more'
+import 'highcharts/modules/exporting'
+
 import SalariesHelper from '../../helpers/SalariesHelper'
 import StateHelper from '../../helpers/StateHelper'
 import chartOptions from '../../data/chartOptions'
@@ -11,120 +13,84 @@ import Notice from './Notice'
 
 import '../../styles/Report.css'
 
-class Report extends Component {
-  constructor() {
-    super(...arguments)
+const Report = () => {
+  // Initialize helpers once
+  const Salaries = useMemo(() => new SalariesHelper(require('../../data/salaries.json')), [])
+  const States = useMemo(() => new StateHelper(require('../../data/states.json')), [])
 
-    this.Salaries = new SalariesHelper(require('../../data/salaries.json'))
-    this.States = new StateHelper(require('../../data/states.json'))
+  const [states, setStates] = useState(['NY', 'CA', 'AZ'])
+  const [config, setConfig] = useState({})
 
-    this.state = {
-      states: ['NY', 'CA', 'AZ'],
-      config: {}
+  // Memoize buildSeries to prevent recreation on every render
+  const buildSeries = useCallback((stateList) => {
+    return stateList.map(stateId => ({
+      data: Salaries.getSeries(stateId),
+      name: States.getName(stateId)
+    }))
+  }, [Salaries, States])
+
+  // Memoize getConfig to prevent recreation on every render
+  const getConfig = useCallback((stateList) => ({
+    ...chartOptions,
+    series: buildSeries(stateList)
+  }), [buildSeries])
+
+  const handleControlChange = useCallback((v) => {
+    if (!states.includes(v.newState)) {
+      const updatedStates = [...states, v.newState]
+      setStates(updatedStates)
+      setConfig(getConfig(updatedStates))
+
+      // mixpanel?.track?.('Add State', {
+      //   State: States.states[v.newState]
+      // })
     }
+  }, [states, getConfig])
 
-    this.handleControlChange = this.handleControlChange.bind(this)
-    this.handleDeleteState = this.handleDeleteState.bind(this)
+  const handleDeleteState = useCallback((key) => {
+    const updatedStates = states.filter(state => state !== key)
+    setStates(updatedStates)
+    setConfig(getConfig(updatedStates))
 
-    initHighcharts()
-  }
+    // mixpanel?.track?.('Remove State', {
+    //   State: States.states[key]
+    // })
+  }, [states, getConfig])
 
-  componentWillMount () {
-    this.setState((prevState) => {
-      return {
-        config: this.getConfig(prevState.states),
-        states: prevState.states
-      }
-    })
-  }
+  // Update config when states change
+  useEffect(() => {
+    setConfig(getConfig(states))
+  }, [states, getConfig])
 
-  buildSeries (states) {
-    const selected = (states.length > 0) ? states : this.state.states
-    let series = []
+  // Track state changes
+  // useEffect(() => {
+  //   const selectedStates = States.getByKeys(states)
+  //   const stateNamesToTrack = selectedStates.map(state => state.label)
 
-    selected.forEach((stateId) => {
-      series.push({
-        data: this.Salaries.getSeries(stateId),
-        name: this.States.getName(stateId)
-      })
-    })
+  //   mixpanel?.track?.('Salary Comparison', {
+  //     States: stateNamesToTrack
+  //   })
+  // }, [states, States])
 
-    return series
-  }
+  const selectedStates = States.getByKeys(states)
 
-  getConfig (states = []) {
-    return {
-      ...chartOptions,
-      series: this.buildSeries(states)
-    }
-  }
-
-  handleControlChange (v) {
-    this.setState((prevState) => {
-      if (prevState.states.indexOf(v.newState) === -1) {
-        prevState.states.push(v.newState)
-      }
-
-      return {
-        states: prevState.states,
-        config: this.getConfig(prevState.states)
-      }
-    })
-
-    this.context.mixpanel.track('Add State', {
-      State: this.States.states[v.newState]
-    })
-  }
-
-  handleDeleteState (key) {
-    this.setState((prevState) => {
-      if (prevState.states.indexOf(key) > -1) {
-        prevState.states = prevState.states.filter(function(state) {
-          return state !== key
-        })
-      }
-
-      return {
-        states: prevState.states,
-        config: this.getConfig(prevState.states)
-      }
-    })
-
-    this.context.mixpanel.track('Remove State', {
-      State: this.States.states[key]
-    })
-  }
-
-  render() {
-    const selectedStates = this.States.getByKeys(this.state.states)
-    const stateNamesToTrack = selectedStates.map(state => state.label)
-
-    this.context.mixpanel.track('Salary Comparison', {
-      States: stateNamesToTrack
-    })
-
-    return (
-      <div className="Report">
-        {this.state.states.length > 0 &&
-          <ReactHighcharts config={this.state.config} />
-        }
-        {this.state.states.length === 0 &&
-          <Notice />
-        }
-        <Controls
-          onControlChange={this.handleControlChange}
-          onDeleteState={this.handleDeleteState}
-          selectedStates={selectedStates}
+  return (
+    <div className="Report">
+      {states.length > 0 ? (
+        <HighchartsReact
+          highcharts={Highcharts}
+          options={config}
         />
-      </div>
-    )
-  }
-}
-
-Report.contextTypes = {
-  mixpanel: PropTypes.shape({
-    track: PropTypes.func.isRequired
-  }).isRequired
+      ) : (
+        <Notice />
+      )}
+      <Controls
+        onControlChange={handleControlChange}
+        onDeleteState={handleDeleteState}
+        selectedStates={selectedStates}
+      />
+    </div>
+  )
 }
 
 export default Report
