@@ -1,15 +1,6 @@
 import React from 'react'
-import { render, screen } from '@testing-library/react'
+import { render, screen } from '../../../test-utils'
 import Chips from './Chips'
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
-
-const renderWithTheme = (ui) => {
-  return render(
-    <MuiThemeProvider>
-      {ui}
-    </MuiThemeProvider>
-  )
-}
 
 describe('Chips', () => {
   const setup = (chips = []) => {
@@ -17,7 +8,7 @@ describe('Chips', () => {
       chipData: chips,
       onDeleteState: jest.fn()
     }
-    return renderWithTheme(<Chips {...props} />)
+    return render(<Chips {...props} />)
   }
 
   it('renders without chips', () => {

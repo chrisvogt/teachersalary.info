@@ -1,17 +1,19 @@
 import React from 'react'
-import { shallow } from 'enzyme'
+import { render, screen } from '@testing-library/react'
 import Report from './'
-import Notice from './Notice'
 import mockContext from '../../mocks/context'
 
-describe('<Report />', () => {
+describe('Report', () => {
   it('renders without crashing', () => {
-    shallow(<Report />, mockContext)
+    const { container } = render(<Report />, { wrapper: mockContext.Provider })
+    expect(container).toBeInTheDocument()
   })
 
-  it('properly handles updating to no selected states', () => {
-    const wrapper = shallow(<Report />, mockContext)
-    wrapper.setState({ states: [] })
-    expect(wrapper.contains(<Notice />)).toEqual(true)
+  it('displays notice when no states are selected', () => {
+    render(<Report />, { wrapper: mockContext.Provider })
+    
+    // Since Notice component should display some text when no states are selected,
+    // we can test for that text being present
+    expect(screen.getByText(/select a state/i)).toBeInTheDocument()
   })
 })

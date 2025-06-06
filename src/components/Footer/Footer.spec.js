@@ -1,5 +1,5 @@
 import React from 'react'
-import { shallow } from 'enzyme'
+import { render, screen } from '@testing-library/react'
 import Footer from './'
 
 const PROPS = {
@@ -9,22 +9,24 @@ const PROPS = {
   quoteCite: 'Scientia est Potentia'
 }
 
-const setup = () => {
-  return shallow(<Footer {...PROPS} />)
-}
+describe('Footer', () => {
+  it('renders without crashing', () => {
+    const { container } = render(<Footer {...PROPS} />)
+    expect(container).toBeInTheDocument()
+  })
 
-it('renders without crashing', () => {
-  setup()
-})
+  it('renders the passed content', () => {
+    render(<Footer {...PROPS} />)
+    
+    expect(screen.getByText(PROPS.copyright)).toBeInTheDocument()
+    expect(screen.getByText(PROPS.overview)).toBeInTheDocument()
+    expect(screen.getByText(PROPS.quoteText)).toBeInTheDocument()
+    expect(screen.getByText(PROPS.quoteCite)).toBeInTheDocument()
 
-it('renders the passed content', () => {
-  const wrapper = setup()
-  const copyright = <small>{PROPS.copyright}</small>
-  const overview = <p>{PROPS.overview}</p>
-  const quoteText = <blockquote>{PROPS.quoteText}<cite>{PROPS.quoteCite}</cite></blockquote>
-  const quoteCite = <cite>{PROPS.quoteCite}</cite>
-  expect(wrapper.contains(copyright)).toEqual(true)
-  expect(wrapper.contains(overview)).toEqual(true)
-  expect(wrapper.contains(quoteText)).toEqual(true)
-  expect(wrapper.contains(quoteCite)).toEqual(true)
+    // Verify correct HTML elements are used
+    expect(screen.getByText(PROPS.copyright).tagName).toBe('SMALL')
+    expect(screen.getByText(PROPS.overview).tagName).toBe('P')
+    expect(screen.getByText(PROPS.quoteText).tagName).toBe('BLOCKQUOTE')
+    expect(screen.getByText(PROPS.quoteCite).tagName).toBe('CITE')
+  })
 })
