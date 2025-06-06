@@ -8,6 +8,18 @@ let chartOptions = {
     backgroundColor: '#212121',
     plotBorderColor: '#606063'
   },
+  accessibility: {
+    enabled: true,
+    description: 'Chart showing average salaries of public elementary and secondary school teachers across different states over time',
+    announceNewData: {
+      announcementFormatter: function (allSeries, newSeries, newPoint) {
+        if (newPoint) {
+          return 'New data point added for ' + newPoint.series.name + ': ' + newPoint.y + ' dollars in ' + newPoint.category;
+        }
+        return false;
+      }
+    }
+  },
   colors: [
     '#7cb5ec', '#f7a35c', '#90ee7e', '#7798BF', '#aaeeee',
     '#ff0066', '#eeaaee', '#55BF3B', '#DF5353', '#7798BF',

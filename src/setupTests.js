@@ -21,7 +21,7 @@ afterAll(() => {
 // Mock CSS modules
 Object.defineProperty(window, 'CSS', { value: { supports: () => false } })
 
-// Mock matchMedia
+// Mock matchMedia for Highcharts
 Object.defineProperty(window, 'matchMedia', {
   writable: true,
   value: jest.fn().mockImplementation(query => ({

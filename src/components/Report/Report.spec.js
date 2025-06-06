@@ -2,6 +2,25 @@ import React from 'react'
 import { render, screen, fireEvent } from '../../test-utils'
 import Report from './'
 
+// Mock Highcharts and its modules
+jest.mock('highcharts', () => ({
+  __esModule: true,
+  default: {
+    chart: jest.fn()
+  }
+}))
+
+jest.mock('highcharts-react-official', () => {
+  return {
+    __esModule: true,
+    default: () => <div data-testid="highcharts-container">Mocked Chart</div>
+  }
+})
+
+jest.mock('highcharts/highcharts-more', () => jest.fn())
+jest.mock('highcharts/modules/exporting', () => jest.fn())
+jest.mock('highcharts/modules/accessibility', () => jest.fn())
+
 // Mock the JSON imports
 jest.mock('../../data/salaries.json', () => ({
   NY: [1, 2, 3],

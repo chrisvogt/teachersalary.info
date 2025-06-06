@@ -4,6 +4,7 @@ import Highcharts from 'highcharts'
 import HighchartsReact from 'highcharts-react-official'
 import 'highcharts/highcharts-more'
 import 'highcharts/modules/exporting'
+import 'highcharts/modules/accessibility'
 
 import SalariesHelper from '../../helpers/SalariesHelper'
 import StateHelper from '../../helpers/StateHelper'

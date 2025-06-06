@@ -11,6 +11,7 @@ const Chips = ({ chipData, onDeleteState }) => {
     <Chip
       key={data.key}
       label={data.label}
+      onClick={() => onDeleteState(data.key)}
       onDelete={() => onDeleteState(data.key)}
       sx={{
         backgroundColor: 'white',
