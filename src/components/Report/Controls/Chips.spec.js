@@ -1,24 +1,32 @@
 import React from 'react'
-import { shallow } from 'enzyme'
+import { render, screen } from '@testing-library/react'
 import Chips from './Chips'
-import Chip from 'material-ui/Chip'
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 
-describe('<Chips />', () => {
-  function setup(chips = []) {
+const renderWithTheme = (ui) => {
+  return render(
+    <MuiThemeProvider>
+      {ui}
+    </MuiThemeProvider>
+  )
+}
+
+describe('Chips', () => {
+  const setup = (chips = []) => {
     const props = {
       chipData: chips,
       onDeleteState: jest.fn()
     }
-
-    return shallow(<Chips {...props} />)
+    return renderWithTheme(<Chips {...props} />)
   }
 
   it('renders without chips', () => {
-    setup()
+    const { container } = setup()
+    expect(container).toBeInTheDocument()
   })
 
-  it('renders with chip', () => {
-    const wrapper = setup([
+  it('renders with chips', () => {
+    const chips = [
       {
         key: 'CA',
         label: 'California'
@@ -27,8 +35,10 @@ describe('<Chips />', () => {
         key: 'AZ',
         label: 'Arizona'
       }
-    ])
-    expect(wrapper.find(<Chip />)).toBeDefined()
+    ]
+    setup(chips)
+    expect(screen.getByText('California')).toBeInTheDocument()
+    expect(screen.getByText('Arizona')).toBeInTheDocument()
   })
 })
 

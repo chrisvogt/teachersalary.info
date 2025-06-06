@@ -1,7 +1,10 @@
 import React from 'react'
-import { shallow } from 'enzyme'
+import { render } from '@testing-library/react'
 import PrimaryAppBar from './PrimaryAppBar'
 
-it('renders without crashing', () => {
-  shallow(<PrimaryAppBar />)
+describe('PrimaryAppBar', () => {
+  it('renders without crashing', () => {
+    const { container } = render(<PrimaryAppBar />)
+    expect(container).toBeInTheDocument()
+  })
 })
