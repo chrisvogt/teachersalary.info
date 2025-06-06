@@ -41,10 +41,6 @@ const Report = () => {
       const updatedStates = [...states, v.newState]
       setStates(updatedStates)
       setConfig(getConfig(updatedStates))
-
-      // mixpanel?.track?.('Add State', {
-      //   State: States.states[v.newState]
-      // })
     }
   }, [states, getConfig])
 
@@ -52,26 +48,12 @@ const Report = () => {
     const updatedStates = states.filter(state => state !== key)
     setStates(updatedStates)
     setConfig(getConfig(updatedStates))
-
-    // mixpanel?.track?.('Remove State', {
-    //   State: States.states[key]
-    // })
   }, [states, getConfig])
 
   // Update config when states change
   useEffect(() => {
     setConfig(getConfig(states))
   }, [states, getConfig])
-
-  // Track state changes
-  // useEffect(() => {
-  //   const selectedStates = States.getByKeys(states)
-  //   const stateNamesToTrack = selectedStates.map(state => state.label)
-
-  //   mixpanel?.track?.('Salary Comparison', {
-  //     States: stateNamesToTrack
-  //   })
-  // }, [states, States])
 
   const selectedStates = States.getByKeys(states)
 
