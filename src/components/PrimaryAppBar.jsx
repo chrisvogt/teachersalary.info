@@ -1,7 +1,6 @@
 import React from 'react'
-import AppBar from 'material-ui/AppBar'
-import IconButton from 'material-ui/IconButton'
-import NavigationClose from 'material-ui/svg-icons/action/code'
+import { AppBar, Toolbar, Typography, IconButton } from '@mui/material'
+import CodeIcon from '@mui/icons-material/Code'
 import META from '../data/meta'
 
 function handleCodeClick () {
@@ -13,13 +12,21 @@ function handleCodeClick () {
  * By default, the left icon is a navigation-menu.
  */
 const PrimaryAppBar = () => (
-  <AppBar
-    title={META.appTitle}
-    iconElementRight={<IconButton><NavigationClose /></IconButton>}
-    iconStyleLeft={{display: 'none'}}
-    onRightIconButtonClick={handleCodeClick}
-    style={{backgroundColor: META.colors.primary}}
-  />
+  <AppBar position="static" sx={{ backgroundColor: META.colors.primary }}>
+    <Toolbar>
+      <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+        {META.appTitle}
+      </Typography>
+      <IconButton
+        color="inherit"
+        onClick={handleCodeClick}
+        size="large"
+        data-testid="code-button"
+      >
+        <CodeIcon />
+      </IconButton>
+    </Toolbar>
+  </AppBar>
 )
 
 export default PrimaryAppBar

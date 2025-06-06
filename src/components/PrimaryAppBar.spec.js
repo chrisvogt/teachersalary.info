@@ -1,19 +1,30 @@
 import React from 'react'
-import { render } from '@testing-library/react'
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
+import { render, fireEvent } from '../test-utils'
 import PrimaryAppBar from './PrimaryAppBar'
-
-const renderWithTheme = (ui) => {
-  return render(
-    <MuiThemeProvider>
-      {ui}
-    </MuiThemeProvider>
-  )
-}
+import META from '../data/meta'
 
 describe('PrimaryAppBar', () => {
+  beforeEach(() => {
+    // Store the original window.location
+    delete window.location
+    window.location = { ...window.location }
+  })
+
+  afterEach(() => {
+    // Restore the original window.location
+    window.location = location
+  })
+
   it('renders without crashing', () => {
-    const { container } = renderWithTheme(<PrimaryAppBar />)
+    const { container } = render(<PrimaryAppBar />)
     expect(container).toBeInTheDocument()
+  })
+
+  it('navigates to repo URL when code icon is clicked', () => {
+    const { getByTestId } = render(<PrimaryAppBar />)
+    const codeButton = getByTestId('code-button')
+    
+    fireEvent.click(codeButton)
+    expect(window.location).toBe(META.repoUrl)
   })
 })

@@ -1,41 +1,92 @@
 import React, { useState } from 'react'
-import SelectField from 'material-ui/SelectField'
-import MenuItem from 'material-ui/MenuItem'
+import { FormControl, InputLabel, Select, MenuItem } from '@mui/material'
 
 const states = require('../../../data/states.json')
-const items = Object.keys(states).map(state => (
-  <MenuItem value={states[state]} key={state} primaryText={`${states[state]}`} />
+const menuItems = Object.keys(states).map(state => (
+  <MenuItem 
+    value={state} 
+    key={state}
+    sx={{
+      '&:hover': {
+        backgroundColor: 'rgba(255, 255, 255, 0.08)',
+        color: 'inherit'
+      },
+      '&.Mui-selected': {
+        backgroundColor: 'rgba(255, 255, 255, 0.16)',
+        color: 'inherit',
+        '&:hover': {
+          backgroundColor: 'rgba(255, 255, 255, 0.24)',
+          color: 'inherit'
+        }
+      }
+    }}
+  >
+    {states[state]}
+  </MenuItem>
 ))
 
-const STYLES = {
-  color: 'white'
-}
-
-/**
- * With the `maxHeight` property set, the Select Field will be scrollable
- * if the number of items causes the height to exceed this limit.
- */
 const StateControl = ({ onChange }) => {
   const [value, setValue] = useState('')
 
-  const handleChange = (event, index, value) => {
-    setValue(value)
+  const handleChange = (event) => {
+    const newValue = event.target.value
+    setValue(newValue)
     onChange({
-      newState: items[index].key
+      newState: newValue
     })
   }
 
   return (
     <div className="control">
-      <SelectField
-        floatingLabelText="Add State"
-        floatingLabelStyle={STYLES}
-        maxHeight={200}
-        onChange={handleChange}
-        value={value}
-      >
-        {items}
-      </SelectField>
+      <FormControl sx={{ minWidth: 200 }}>
+        <InputLabel 
+          htmlFor="state-select" 
+          sx={{ 
+            color: 'white',
+            '&.Mui-focused': {
+              color: 'white',
+            },
+            '&.MuiFormLabel-filled': {
+              color: 'white',
+            }
+          }}
+        >
+          Add State
+        </InputLabel>
+        <Select
+          id="state-select"
+          value={value}
+          onChange={handleChange}
+          label="Add State"
+          MenuProps={{
+            PaperProps: {
+              sx: {
+                backgroundColor: '#004D40',  // Same as teal[900]
+                '& .MuiMenuItem-root': {
+                  color: 'white'
+                }
+              }
+            }
+          }}
+          sx={{
+            color: 'white',
+            '.MuiOutlinedInput-notchedOutline': {
+              borderColor: 'white',
+            },
+            '&:hover .MuiOutlinedInput-notchedOutline': {
+              borderColor: 'white',
+            },
+            '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+              borderColor: 'white',
+            },
+            '.MuiSvgIcon-root': {
+              color: 'white',
+            }
+          }}
+        >
+          {menuItems}
+        </Select>
+      </FormControl>
     </div>
   )
 }

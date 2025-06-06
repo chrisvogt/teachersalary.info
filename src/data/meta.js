@@ -1,11 +1,11 @@
-import { teal900, grey900 } from 'material-ui/styles/colors'
+import { teal, grey } from '@mui/material/colors'
 
 const META = {
   appTitle: 'Teacher Salary Info',
   authorUrl: 'https://www.chrisvogt.me',
   colors: {
-    primary: teal900,
-    dark: grey900
+    primary: teal[900],
+    dark: grey[900]
   },
   hostname: 'teachersalary.info',
   repoUrl: 'https://github.com/chrisvogt/teacher-salaries'
