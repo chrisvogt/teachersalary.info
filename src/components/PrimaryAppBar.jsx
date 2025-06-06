@@ -21,6 +21,7 @@ const PrimaryAppBar = () => (
         color="inherit"
         onClick={handleCodeClick}
         size="large"
+        data-testid="code-button"
       >
         <CodeIcon />
       </IconButton>

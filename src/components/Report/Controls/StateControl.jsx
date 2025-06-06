@@ -20,8 +20,9 @@ const StateControl = ({ onChange }) => {
   return (
     <div className="control">
       <FormControl sx={{ minWidth: 200 }}>
-        <InputLabel sx={{ color: 'white' }}>Add State</InputLabel>
+        <InputLabel htmlFor="state-select" sx={{ color: 'white' }}>Add State</InputLabel>
         <Select
+          id="state-select"
           value={value}
           onChange={handleChange}
           label="Add State"
