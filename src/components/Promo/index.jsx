@@ -1,16 +1,9 @@
 import React from 'react'
 import { Grid, Row, Col } from 'react-flexbox-grid'
-import RaisedButton from 'material-ui/RaisedButton'
+import { Button } from '@mui/material'
+import DomainIcon from '@mui/icons-material/Domain'
 import META from '../../data/meta'
-import Domain from 'material-ui/svg-icons/social/domain'
 import '../../styles/Promo.css'
-
-const STYLES = {
-  button: {
-    fontFamily: "'Quicksand', Verdana, sans-serif",
-    textTransform: 'none'
-  }
-}
 
 function handleCodeClick () {
   window.location = META.authorUrl
@@ -28,15 +21,21 @@ const Promo = ({
         </Col>
         <Col xs={4}>
           <div className="btn-wrapper">
-            <RaisedButton
-              backgroundColor={META.colors.primary}
-              icon={<Domain />}
-              label={ctaButtonText}
-              labelColor="white"
-              labelPosition="after"
+            <Button
+              variant="contained"
+              startIcon={<DomainIcon />}
               onClick={handleCodeClick}
-              style={STYLES.button}
-            />
+              sx={{
+                backgroundColor: META.colors.primary,
+                color: 'white',
+                fontFamily: "'Quicksand', Verdana, sans-serif",
+                '&:hover': {
+                  backgroundColor: META.colors.primary,
+                }
+              }}
+            >
+              {ctaButtonText}
+            </Button>
           </div>
         </Col>
       </Row>

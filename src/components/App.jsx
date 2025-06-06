@@ -7,7 +7,8 @@ import Report from './Report/'
 import Page from './Page/'
 import Promo from './Promo/'
 import Footer from './Footer/'
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
+import { ThemeProvider } from '@mui/material/styles'
+import theme from '../theme'
 import META from '../data/meta'
 import * as CONTENT from '../content/text'
 
@@ -17,7 +18,7 @@ const App = () => {
   // mixpanel.init('cd074c278f7867740ac8cf157c98436f')
 
   return (
-    <MuiThemeProvider>
+    <ThemeProvider theme={theme}>
       {/* <MixpanelProvider mixpanel={mixpanel}> */}
         <div className="App">
           <PrimaryAppBar style={{ backgroundColor: META.colors.primary }} />
@@ -40,7 +41,7 @@ const App = () => {
           />
         </div>
       {/* </MixpanelProvider> */}
-    </MuiThemeProvider>
+    </ThemeProvider>
   )
 }
 

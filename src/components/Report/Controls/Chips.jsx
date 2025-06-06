@@ -1,16 +1,5 @@
 import React from 'react'
-import Chip from 'material-ui/Chip'
-
-const STYLES = {
-  chip: {
-    backgroundColor: 'white',
-    margin: 4,
-  },
-  wrapper: {
-    display: 'flex',
-    flexWrap: 'wrap',
-  }
-}
+import { Chip, Box } from '@mui/material'
 
 /**
  * An example of rendering multiple Chips from an array of values. Deleting a chip removes it from the array.
@@ -21,11 +10,13 @@ const Chips = ({ chipData, onDeleteState }) => {
   const renderChip = data => (
     <Chip
       key={data.key}
-      onRequestDelete={() => onDeleteState(data.key)}
-      style={STYLES.chip}
-    >
-      {data.label}
-    </Chip>
+      label={data.label}
+      onDelete={() => onDeleteState(data.key)}
+      sx={{
+        backgroundColor: 'white',
+        margin: 0.5,
+      }}
+    />
   )
 
   const getChips = () => {
@@ -36,9 +27,12 @@ const Chips = ({ chipData, onDeleteState }) => {
   }
 
   return (
-    <div style={STYLES.wrapper}>
+    <Box sx={{
+      display: 'flex',
+      flexWrap: 'wrap',
+    }}>
       {getChips()}
-    </div>
+    </Box>
   )
 }
 

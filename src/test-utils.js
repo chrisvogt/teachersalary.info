@@ -1,15 +1,13 @@
 import React from 'react'
 import { render } from '@testing-library/react'
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
-import getMuiTheme from 'material-ui/styles/getMuiTheme'
-
-const defaultTheme = getMuiTheme()
+import { ThemeProvider } from '@mui/material/styles'
+import theme from './theme'
 
 const AllTheProviders = ({ children }) => {
   return (
-    <MuiThemeProvider muiTheme={defaultTheme}>
+    <ThemeProvider theme={theme}>
       {children}
-    </MuiThemeProvider>
+    </ThemeProvider>
   )
 }
 
