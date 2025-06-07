@@ -89,6 +89,24 @@ const Report = () => {
     ...chartOptions,
     dataset: buildDataset(stateList),
     series: buildSeries(stateList),
+    toolbox: {
+      feature: {
+        saveAsImage: {
+          title: 'Save as Image',
+          type: 'png',
+          name: `teacher-salary-comparison-${stateList.join('-')}-${new Date().getFullYear()}`
+        },
+        dataView: {
+          title: 'Data View',
+          readOnly: true
+        },
+        restore: {
+          title: 'Restore'
+        }
+      },
+      right: 20,
+      top: 20
+    },
     tooltip: {
       ...chartOptions.tooltip,
       formatter: function(params) {
