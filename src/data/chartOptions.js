@@ -93,12 +93,22 @@ let chartOptions = {
       }
     },
     axisLabel: {
-      color: '#E0E0E3'
+      color: '#E0E0E3',
+      formatter: function(value) {
+        return value / 1000 + 'k';
+      }
     },
     splitLine: {
       lineStyle: {
         color: '#505053'
       }
+    },
+    interval: 5000,
+    min: function(value) {
+      return Math.floor(value.min / 5000) * 5000;
+    },
+    max: function(value) {
+      return Math.ceil(value.max / 5000) * 5000;
     }
   },
   dataset: [
