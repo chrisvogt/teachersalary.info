@@ -25,7 +25,7 @@ class StateHelper {
   }
 
   getByKeys (keys) {
-    if (keys.length < 1) {
+    if (!keys || keys.length < 1) {
       return []
     }
 
