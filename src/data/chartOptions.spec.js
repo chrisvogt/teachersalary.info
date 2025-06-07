@@ -1,6 +1,44 @@
 import chartOptions from './chartOptions'
 
 describe('chartOptions', () => {
+  describe('basic configuration', () => {
+    it('should have a title', () => {
+      expect(chartOptions.title.text).toBe('Avg. salary, public elementary and secondary school teachers')
+    })
+
+    it('should have the correct background color', () => {
+      expect(chartOptions.backgroundColor).toBe('#212121')
+    })
+
+    it('should have the correct color palette', () => {
+      expect(chartOptions.color).toContain('#7cb5ec')
+      expect(chartOptions.color).toContain('#f7a35c')
+      expect(chartOptions.color).toContain('#90ee7e')
+    })
+  })
+
+  describe('axes configuration', () => {
+    it('should have x-axis categories', () => {
+      expect(chartOptions.xAxis.data).toContain('1969-70')
+      expect(chartOptions.xAxis.data).toContain('2012-13')
+    })
+
+    it('should have y-axis title', () => {
+      expect(chartOptions.yAxis.name).toBe('Estimated avg. teacher salary')
+    })
+  })
+
+  describe('tooltip configuration', () => {
+    it('should have tooltip enabled', () => {
+      expect(chartOptions.tooltip.trigger).toBe('axis')
+    })
+
+    it('should have correct tooltip styling', () => {
+      expect(chartOptions.tooltip.backgroundColor).toBe('rgba(0, 0, 0, 0.85)')
+      expect(chartOptions.tooltip.textStyle.color).toBe('#F0F0F0')
+    })
+  })
+
   describe('accessibility', () => {
     it('should have accessibility enabled', () => {
       expect(chartOptions.accessibility.enabled).toBe(true)

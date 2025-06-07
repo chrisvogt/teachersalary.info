@@ -1,10 +1,5 @@
 import React, { useEffect, useState, useMemo, useCallback } from 'react'
-
-import Highcharts from 'highcharts'
-import HighchartsReact from 'highcharts-react-official'
-import 'highcharts/highcharts-more'
-import 'highcharts/modules/exporting'
-import 'highcharts/modules/accessibility'
+import ReactECharts from 'echarts-for-react'
 
 import SalariesHelper from '../../helpers/SalariesHelper'
 import StateHelper from '../../helpers/StateHelper'
@@ -25,8 +20,13 @@ const Report = () => {
   // Memoize buildSeries to prevent recreation on every render
   const buildSeries = useCallback((stateList) => {
     return stateList.map(stateId => ({
+      type: 'line',
+      name: States.getName(stateId),
       data: Salaries.getSeries(stateId),
-      name: States.getName(stateId)
+      showSymbol: false,
+      emphasis: {
+        focus: 'series'
+      }
     }))
   }, [Salaries, States])
 
@@ -60,9 +60,10 @@ const Report = () => {
   return (
     <div className="Report">
       {states.length > 0 ? (
-        <HighchartsReact
-          highcharts={Highcharts}
-          options={config}
+        <ReactECharts
+          option={config}
+          style={{ height: '400px' }}
+          opts={{ renderer: 'svg' }}
         />
       ) : (
         <Notice />

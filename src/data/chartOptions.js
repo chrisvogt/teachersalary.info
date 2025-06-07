@@ -1,47 +1,50 @@
 /**
- * The default Highcharts configuration.
- * @tutorial http://api.highcharts.com/highcharts
+ * The default ECharts configuration.
  */
 let chartOptions = {
-  chart: {
-    type: 'line',
-    backgroundColor: '#212121',
-    plotBorderColor: '#606063'
-  },
-  accessibility: {
-    enabled: true,
-    description: 'Chart showing average salaries of public elementary and secondary school teachers across different states over time',
-    announceNewData: {
-      announcementFormatter: function (allSeries, newSeries, newPoint) {
-        if (newPoint) {
-          return 'New data point added for ' + newPoint.series.name + ': ' + newPoint.y + ' dollars in ' + newPoint.category;
-        }
-        return false;
-      }
-    }
-  },
-  colors: [
+  backgroundColor: '#212121',
+  color: [
     '#7cb5ec', '#f7a35c', '#90ee7e', '#7798BF', '#aaeeee',
     '#ff0066', '#eeaaee', '#55BF3B', '#DF5353', '#7798BF',
     '#aaeeee'
   ],
   title: {
     text: 'Avg. salary, public elementary and secondary school teachers',
-    style: {
+    textStyle: {
       color: '#A0A0A3',
       fontSize: '1.1em'
     }
   },
   legend: {
-    layout: 'horizontal',
-    align: 'center',
-    verticalAlign: 'bottom',
-    floating: false,
-    borderWidth: 0,
-    backgroundColor: '#FFFFFF',
+    type: 'scroll',
+    bottom: 0,
+    textStyle: {
+      color: '#FFFFFF'
+    }
+  },
+  tooltip: {
+    trigger: 'axis',
+    formatter: function(params) {
+      let result = params[0].axisValue + '<br/>';
+      params.forEach(param => {
+        result += param.marker + ' ' + param.seriesName + ': $' + param.value + ' dollars<br/>';
+      });
+      return result;
+    },
+    backgroundColor: 'rgba(0, 0, 0, 0.85)',
+    textStyle: {
+      color: '#F0F0F0'
+    }
+  },
+  grid: {
+    left: '3%',
+    right: '4%',
+    bottom: '15%',
+    containLabel: true
   },
   xAxis: {
-    categories: [
+    type: 'category',
+    data: [
       '1969-70',
       '1979-80',
       '1989-90',
@@ -50,85 +53,42 @@ let chartOptions = {
       '2011-12',
       '2012-13'
     ],
-    gridLineColor: '#707073',
-    labels: {
-      style: {
-        color: '#E0E0E3'
+    axisLine: {
+      lineStyle: {
+        color: '#707073'
       }
     },
-    lineColor: '#707073',
-    minorGridLineColor: '#505053',
-    tickColor: '#707073',
-  },
-  exporting: {
-    buttons: {
-      contextButton: {
-        menuItems: ['printChart']
-      }
+    axisLabel: {
+      color: '#E0E0E3'
     },
-    sourceWidth: 1600,
-    sourceHeight: 400
+    splitLine: {
+      show: true,
+      lineStyle: {
+        color: '#505053'
+      }
+    }
   },
   yAxis: {
-    gridLineColor: '#707073',
-    labels: {
-      style: {
-        color: '#E0E0E3'
+    type: 'value',
+    name: 'Estimated avg. teacher salary',
+    nameTextStyle: {
+      color: '#A0A0A3'
+    },
+    axisLine: {
+      lineStyle: {
+        color: '#707073'
       }
     },
-    lineColor: '#707073',
-    minorGridLineColor: '#505053',
-    tickColor: '#707073',
-    tickWidth: 1,
-    title: {
-      text: 'Estimated avg. teacher salary',
-      style: {
-        color: '#A0A0A3'
-      }
-    }
-  },
-  tooltip: {
-    shared: true,
-    valuePrefix: '$',
-    valueSuffix: ' dollars',
-    backgroundColor: 'rgba(0, 0, 0, 0.85)',
-    style: {
-      color: '#F0F0F0'
-    }
-  },
-  navigation: {
-    buttonOptions: {
-      symbolStroke: '#DDDDDD',
-      theme: {
-        fill: '#505053'
+    axisLabel: {
+      color: '#E0E0E3'
+    },
+    splitLine: {
+      lineStyle: {
+        color: '#505053'
       }
     }
   },
-  credits: {
-    enabled: false
-  },
-  plotOptions: {
-    areaspline: {
-      fillColor: false
-    },
-    series: {
-      dataLabels: {
-        color: '#B0B0B3'
-      },
-      marker: {
-        lineColor: '#333'
-      }
-    },
-    boxplot: {
-      fillColor: '#505053'
-    },
-    candlestick: {
-      lineColor: 'white'
-    },
-    errorbar: {
-      color: 'white'
-    }
-  }
-}
+  series: []
+};
 
-export default chartOptions
+export default chartOptions;
