@@ -80,8 +80,12 @@ let chartOptions = {
   yAxis: {
     type: 'value',
     name: 'Estimated avg. teacher salary',
+    nameLocation: 'middle',
+    nameGap: 50,
+    nameRotate: 90,
     nameTextStyle: {
-      color: '#A0A0A3'
+      color: '#A0A0A3',
+      align: 'center'
     },
     axisLine: {
       lineStyle: {
