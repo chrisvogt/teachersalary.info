@@ -60,8 +60,13 @@ const Report = () => {
       endLabel: {
         show: true,
         formatter: function(params) {
-          return params.seriesName + ': $' + params.data.Salary.toLocaleString()
-        }
+          // Initially just show state name
+          return params.seriesName;
+        },
+        distance: 10,
+        backgroundColor: 'rgba(33, 33, 33, 0.8)',
+        padding: [4, 8],
+        borderRadius: 4
       },
       labelLayout: {
         moveOverlap: 'shiftY'
@@ -98,9 +103,42 @@ const Report = () => {
 
   const handleControlChange = useCallback((v) => {
     if (!states.includes(v.newState)) {
-      const updatedStates = [...states, v.newState]
-      setStates(updatedStates)
-      setConfig(getConfig(updatedStates))
+      const updatedStates = [...states, v.newState];
+      setStates(updatedStates);
+      
+      // Get initial config
+      const initialConfig = getConfig(updatedStates);
+      
+      // Set initial label for new state to just show state name
+      const newStateIndex = updatedStates.length - 1;
+      initialConfig.series[newStateIndex].endLabel.formatter = function(params) {
+        return params.seriesName;
+      };
+      
+      setConfig(initialConfig);
+
+      // Update just the new state's label after animation
+      const timer = setTimeout(() => {
+        setConfig(prevConfig => ({
+          ...prevConfig,
+          series: prevConfig.series.map((series, index) => {
+            if (index === newStateIndex) {
+              return {
+                ...series,
+                endLabel: {
+                  ...series.endLabel,
+                  formatter: function(params) {
+                    return params.seriesName + ': $' + params.data.Salary.toLocaleString();
+                  }
+                }
+              };
+            }
+            return series;
+          })
+        }));
+      }, 2800);
+
+      return () => clearTimeout(timer);
     }
   }, [states, getConfig])
 
@@ -112,8 +150,27 @@ const Report = () => {
 
   // Update config when states change
   useEffect(() => {
-    setConfig(getConfig(states))
-  }, [states, getConfig])
+    const initialConfig = getConfig(states);
+    setConfig(initialConfig);
+
+    // Update labels just before the main animation completes
+    const timer = setTimeout(() => {
+      setConfig(prevConfig => ({
+        ...prevConfig,
+        series: prevConfig.series.map(series => ({
+          ...series,
+          endLabel: {
+            ...series.endLabel,
+            formatter: function(params) {
+              return params.seriesName + ': $' + params.data.Salary.toLocaleString();
+            }
+          }
+        }))
+      }));
+    }, 2800); // Update just before the main animation completes (3000ms)
+
+    return () => clearTimeout(timer);
+  }, [states, getConfig]);
 
   const selectedStates = States.getByKeys(states)
 
@@ -124,6 +181,29 @@ const Report = () => {
           option={config}
           style={{ height: '400px' }}
           opts={{ renderer: 'svg' }}
+          onChartReady={(chart) => {
+            // Initially hide all end labels
+            states.forEach((stateId, index) => {
+              const seriesIndex = index;
+              chart.dispatchAction({
+                type: 'hideTip',
+                seriesIndex: seriesIndex
+              });
+            });
+
+            // After main animation, show end labels with delay
+            setTimeout(() => {
+              states.forEach((stateId, index) => {
+                const seriesIndex = index;
+                setTimeout(() => {
+                  chart.dispatchAction({
+                    type: 'showTip',
+                    seriesIndex: seriesIndex
+                  });
+                }, index * 100); // Stagger the animations
+              });
+            }, 2000); // Wait for main chart animation
+          }}
         />
       ) : (
         <Notice />

@@ -18,7 +18,9 @@ let chartOptions = {
     textStyle: {
       color: '#A0A0A3',
       fontSize: '1.1em'
-    }
+    },
+    textAlign: 'center',
+    left: 'center'
   },
   legend: {
     type: 'scroll',
@@ -53,7 +55,7 @@ let chartOptions = {
       '1969-70',
       '1979-80',
       '1989-90',
-      '1990-2000',
+      '1999-2000',
       '2009-10',
       '2011-12',
       '2012-13'
@@ -64,7 +66,9 @@ let chartOptions = {
       }
     },
     axisLabel: {
-      color: '#E0E0E3'
+      color: '#E0E0E3',
+      interval: 0,
+      rotate: 45
     },
     splitLine: {
       show: true,
@@ -99,7 +103,34 @@ let chartOptions = {
       source: []
     }
   ],
-  series: []
+  series: [{
+    type: 'line',
+    endLabel: {
+      show: true,
+      formatter: function(params) {
+        return params.seriesName;
+      },
+      animation: {
+        duration: 1000,
+        delay: function(idx) {
+          return 2000 + idx * 100;
+        }
+      }
+    },
+    labelLayout: {
+      moveOverlap: 'shiftY'
+    },
+    emphasis: {
+      focus: 'series'
+    },
+    encode: {
+      x: 'Year',
+      y: 'Salary',
+      label: ['State', 'Salary'],
+      itemName: 'Year',
+      tooltip: ['Salary']
+    }
+  }]
 };
 
 export default chartOptions;
