@@ -21,21 +21,6 @@ afterAll(() => {
 // Mock CSS modules
 Object.defineProperty(window, 'CSS', { value: { supports: () => false } })
 
-// Mock matchMedia for Highcharts
-Object.defineProperty(window, 'matchMedia', {
-  writable: true,
-  value: jest.fn().mockImplementation(query => ({
-    matches: false,
-    media: query,
-    onchange: null,
-    addListener: jest.fn(), // deprecated
-    removeListener: jest.fn(), // deprecated
-    addEventListener: jest.fn(),
-    removeEventListener: jest.fn(),
-    dispatchEvent: jest.fn(),
-  })),
-})
-
 // Mock TextEncoder/TextDecoder if they don't exist
 if (typeof TextEncoder === 'undefined') {
   const { TextEncoder, TextDecoder } = require('node:util')
