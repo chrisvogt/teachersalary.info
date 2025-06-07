@@ -1,14 +1,11 @@
 .Promo {
   background: white;
+  text-align: center;
+  padding: 24px;
 }
 
 .Promo .message {
-  text-align: left;
-  padding: 32px 0;
-}
-
-.Promo .btn-wrapper {
-  padding: 24px 0;
+  margin-bottom: 18px;
 }
 
 .Promo button {
