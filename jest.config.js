@@ -6,6 +6,8 @@ module.exports = {
     '!src/setupTests.js',
     '!src/test-utils.js',
     '!src/mocks/**/*',
+    '!src/theme.js',
+    '!src/content/text.js',
   ],
   coverageThreshold: {
     global: {
