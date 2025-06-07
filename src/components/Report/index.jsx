@@ -17,24 +17,84 @@ const Report = () => {
   const [states, setStates] = useState(['NY', 'CA', 'AZ'])
   const [config, setConfig] = useState({})
 
+  // Memoize buildDataset to prevent recreation on every render
+  const buildDataset = useCallback((stateList) => {
+    const datasets = [{
+      id: 'dataset_raw',
+      source: stateList.map(stateId => {
+        const series = Salaries.getSeries(stateId)
+        return series.map((value, index) => ({
+          State: States.getName(stateId),
+          Year: chartOptions.xAxis.data[index],
+          Salary: Number(value) // Ensure value is a number
+        }))
+      }).flat()
+    }]
+
+    // Add filtered datasets for each state
+    stateList.forEach(stateId => {
+      datasets.push({
+        id: `dataset_${stateId}`,
+        fromDatasetId: 'dataset_raw',
+        transform: {
+          type: 'filter',
+          config: {
+            and: [
+              { dimension: 'State', '=': States.getName(stateId) }
+            ]
+          }
+        }
+      })
+    })
+
+    return datasets
+  }, [Salaries, States])
+
   // Memoize buildSeries to prevent recreation on every render
   const buildSeries = useCallback((stateList) => {
     return stateList.map(stateId => ({
       type: 'line',
+      datasetId: `dataset_${stateId}`,
       name: States.getName(stateId),
-      data: Salaries.getSeries(stateId),
       showSymbol: false,
+      endLabel: {
+        show: true,
+        formatter: function(params) {
+          return params.name + ': $' + params.data.Salary.toLocaleString()
+        }
+      },
+      labelLayout: {
+        moveOverlap: 'shiftY'
+      },
       emphasis: {
         focus: 'series'
+      },
+      encode: {
+        x: 'Year',
+        y: 'Salary',
+        label: ['State', 'Salary'],
+        itemName: 'Year',
+        tooltip: ['Salary']
       }
     }))
-  }, [Salaries, States])
+  }, [States])
 
   // Memoize getConfig to prevent recreation on every render
   const getConfig = useCallback((stateList) => ({
     ...chartOptions,
-    series: buildSeries(stateList)
-  }), [buildSeries])
+    dataset: buildDataset(stateList),
+    series: buildSeries(stateList),
+    tooltip: {
+      ...chartOptions.tooltip,
+      formatter: function(params) {
+        let result = params[0].axisValue + '<br/>';
+        params.forEach(param => {
+          result += param.marker + ' ' + param.seriesName + ': $' + param.data.Salary.toLocaleString() + ' dollars<br/>';
+        });
+        return result;
+      }
+    }
+  }), [buildDataset, buildSeries])
 
   const handleControlChange = useCallback((v) => {
     if (!states.includes(v.newState)) {

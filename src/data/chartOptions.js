@@ -8,6 +8,11 @@ let chartOptions = {
     '#ff0066', '#eeaaee', '#55BF3B', '#DF5353', '#7798BF',
     '#aaeeee'
   ],
+  animationDuration: 3000,
+  animationEasing: 'cubicInOut',
+  animationThreshold: 2000,
+  progressive: 500,
+  progressiveThreshold: 3000,
   title: {
     text: 'Avg. salary, public elementary and secondary school teachers',
     textStyle: {
@@ -88,6 +93,12 @@ let chartOptions = {
       }
     }
   },
+  dataset: [
+    {
+      id: 'dataset_raw',
+      source: []
+    }
+  ],
   series: []
 };
 
