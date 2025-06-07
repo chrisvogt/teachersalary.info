@@ -60,7 +60,7 @@ const Report = () => {
       endLabel: {
         show: true,
         formatter: function(params) {
-          return params.name + ': $' + params.data.Salary.toLocaleString()
+          return params.seriesName + ': $' + params.data.Salary.toLocaleString()
         }
       },
       labelLayout: {
