@@ -20,11 +20,12 @@ let chartOptions = {
       fontSize: '1.1em'
     },
     textAlign: 'center',
-    left: 'center'
+    left: 'center',
+    top: 24
   },
   legend: {
     type: 'scroll',
-    bottom: 0,
+    bottom: 24,
     textStyle: {
       color: '#FFFFFF'
     }
@@ -44,8 +45,8 @@ let chartOptions = {
     }
   },
   grid: {
-    left: '3%',
-    right: '4%',
+    left: '72px',
+    right: '72px',
     bottom: '15%',
     containLabel: true
   },
@@ -129,7 +130,12 @@ let chartOptions = {
         delay: function(idx) {
           return 2000 + idx * 100;
         }
-      }
+      },
+      distance: 8,
+      position: 'end',
+      backgroundColor: 'rgba(33, 33, 33, 0.8)',
+      padding: [4, 8],
+      borderRadius: 4
     },
     labelLayout: {
       moveOverlap: 'shiftY'
