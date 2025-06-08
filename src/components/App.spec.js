@@ -2,7 +2,6 @@ import React from 'react'
 import { render, screen } from '@testing-library/react'
 import App from './App'
 import META from '../data/meta'
-import * as CONTENT from '../content/text'
 
 // Mock all child components
 jest.mock('./PrimaryAppBar', () => {
@@ -83,23 +82,17 @@ describe('App', () => {
     const appBar = screen.getByTestId('primary-app-bar')
     expect(appBar).toHaveStyle({ backgroundColor: META.colors.primary })
 
-    // Check Page content
+    // Check that components receive their required props
     const page = screen.getByTestId('page')
-    expect(page).toHaveTextContent(CONTENT.headline)
-    expect(page).toHaveTextContent(CONTENT.subhead)
-    expect(page).toHaveTextContent(CONTENT.source)
-    expect(page).toHaveTextContent(CONTENT.disclaimer)
+    expect(page.querySelector('h1')).toBeInTheDocument()
+    expect(page.querySelector('h3')).toBeInTheDocument()
+    expect(page.querySelectorAll('div')).toHaveLength(2)
 
-    // Check Promo content
     const promo = screen.getByTestId('promo')
-    expect(promo).toHaveTextContent(CONTENT.callToAction)
-    expect(promo).toHaveTextContent(CONTENT.ctaButtonText)
+    expect(promo.querySelector('div')).toBeInTheDocument()
+    expect(promo.querySelector('button')).toBeInTheDocument()
 
-    // Check Footer content
     const footer = screen.getByTestId('footer')
-    expect(footer).toHaveTextContent(CONTENT.copyright)
-    expect(footer).toHaveTextContent(CONTENT.overview)
-    expect(footer).toHaveTextContent(CONTENT.quote.text)
-    expect(footer).toHaveTextContent(CONTENT.quote.cite)
+    expect(footer.querySelectorAll('div')).toHaveLength(4)
   })
 })

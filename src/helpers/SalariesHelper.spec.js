@@ -2,14 +2,18 @@ import SalariesHelper from './SalariesHelper'
 
 const MOCK = {
   'AL': {
-    '1969-70': 1,
-    '1979-80': 2,
-    '1989-90': 3
+    constant: {
+      '1969-70': 1,
+      '1979-80': 2,
+      '1989-90': 3
+    }
   },
   'AK': {
-    '1969-70': 1,
-    '1979-80': 2,
-    '1989-90': 3
+    constant: {
+      '1969-70': 1,
+      '1979-80': 2,
+      '1989-90': 3
+    }
   }
 }
 
@@ -38,7 +42,7 @@ describe('SalariesHelper', () => {
     })
 
     it('handles empty series object', () => {
-      const result = Salaries.parseSeries({})
+      const result = Salaries.parseSeries({ constant: {} })
       expect(result).toEqual([])
     })
 
