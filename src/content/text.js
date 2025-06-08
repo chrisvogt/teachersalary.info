@@ -12,7 +12,7 @@ export const noStatesNotice = 'No states selected'
 
 export const overview = 'This is a data visualization experiment by Chris Vogt using estimated teacher salary data reported by states and published by the National Center for Education Statistics (NCES). It shows how average public school teacher salaries have changed over time across U.S. states, adjusted for inflation using CPI.'
 
-export const source = 'Digest of Education Statistics. (2013, April). Estimated average annual salary of teachers in public elementary and secondary schools, by state: Selected years, 1969–70 through 2012–13 [Table]. Retrieved from https://nces.ed.gov/programs/digest/d13/tables/dt13_211.60.asp.'
+export const source = 'Digest of Education Statistics. (2013, April). 	Estimated average annual salary of teachers in public elementary and secondary schools, by state: Selected school years, 1969-70 through 2021-22 [Table]. Retrieved from https://nces.ed.gov/programs/digest/d22/tables/dt22_211.60.asp.'
 
 export const subhead = 'Explore and compare the estimated average annual salaries of public elementary and secondary school teachers across U.S. states over time.'
 

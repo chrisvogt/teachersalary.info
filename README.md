@@ -3,17 +3,17 @@
 [![codecov](https://codecov.io/gh/chrisvogt/teachersalary.info/graph/badge.svg?token=aMQ5TSNe9t)](https://codecov.io/gh/chrisvogt/teachersalary.info)
 [![GitHub license](https://img.shields.io/github/license/teacherdata/salaries.svg)](https://github.com/teacherdata/salaries/blob/master/LICENSE)
 
-# Compare U.S. Teacher Salaries: 1969 to 2013
+# Compare U.S. Teacher Salaries: 1969 to 2022
 
-Compare the estimated average annual salary of teachers in public elementary and secondary schools between 1969 and 2013 by US state.
+Compare the estimated average annual salary of teachers in public elementary and secondary schools between 1969 and 2022 by US state.
 
-Powered by data from the NCES [Digest of Education Statistics](https://nces.ed.gov/programs/digest/d13/tables/dt13_211.60.asp).
+Powered by data from the NCES [Digest of Education Statistics](https://nces.ed.gov/programs/digest/d22/tables/dt22_211.60.asp).
 
 View live @ [teachersalary.info](https://teachersalary.info).
 
 ## Screenshot
 
-[![Teacher Salaries: 1969 to 2013](/public/images/screenshot.png)](http://teachersalary.info)
+[![Teacher Salaries: 1969 to 2022](/public/images/screenshot.png)](http://teachersalary.info)
 
 ## License
 
