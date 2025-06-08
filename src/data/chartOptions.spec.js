@@ -17,7 +17,7 @@ describe('chartOptions', () => {
   })
 
   it('has the correct title configuration', () => {
-    expect(chartOptions.title).toHaveProperty('text', 'Avg. salary, public elementary and secondary school teachers')
+    expect(chartOptions.title).toHaveProperty('text', 'Avg. salary (constant dollars), public elementary and secondary school teachers')
     expect(chartOptions.title.textStyle).toHaveProperty('color', '#A0A0A3')
     expect(chartOptions.title.textStyle).toHaveProperty('fontSize', '1.1em')
   })
@@ -30,15 +30,16 @@ describe('chartOptions', () => {
       '1989-90',
       '1999-2000',
       '2009-10',
-      '2011-12',
-      '2012-13'
+      '2019-20',
+      '2020-21',
+      '2021-22'
     ])
     expect(chartOptions.xAxis.axisLabel).toHaveProperty('rotate', 45)
   })
 
   it('has the correct y-axis configuration', () => {
     expect(chartOptions.yAxis).toHaveProperty('type', 'value')
-    expect(chartOptions.yAxis).toHaveProperty('name', 'Estimated avg. teacher salary')
+    expect(chartOptions.yAxis).toHaveProperty('name', 'Estimated avg. teacher salary (constant dollars)')
     expect(chartOptions.yAxis).toHaveProperty('interval', 5000)
     expect(chartOptions.yAxis.axisLabel.formatter).toBeInstanceOf(Function)
   })

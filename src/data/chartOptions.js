@@ -14,7 +14,7 @@ let chartOptions = {
   progressive: 500,
   progressiveThreshold: 3000,
   title: {
-    text: 'Avg. salary, public elementary and secondary school teachers',
+    text: 'Avg. salary (constant dollars), public elementary and secondary school teachers',
     textStyle: {
       color: '#A0A0A3',
       fontSize: '1.1em'
@@ -58,8 +58,9 @@ let chartOptions = {
       '1989-90',
       '1999-2000',
       '2009-10',
-      '2011-12',
-      '2012-13'
+      '2019-20',
+      '2020-21',
+      '2021-22'
     ],
     axisLine: {
       lineStyle: {
@@ -80,7 +81,7 @@ let chartOptions = {
   },
   yAxis: {
     type: 'value',
-    name: 'Estimated avg. teacher salary',
+    name: 'Estimated avg. teacher salary (constant dollars)',
     nameLocation: 'middle',
     nameGap: 50,
     nameRotate: 90,

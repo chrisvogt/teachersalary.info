@@ -16,8 +16,10 @@ class SalariesHelper {
   parseSeries (series) {
     let parsed = []
 
-    Object.keys(series).forEach((key) => {
-      parsed.push(series[key])
+    // Use constant dollar values instead of current dollar values
+    Object.keys(series.constant).forEach((key) => {
+      // Round to whole number since we don't need decimal places for salary values
+      parsed.push(Math.round(series.constant[key]))
     })
 
     return parsed
